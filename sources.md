@@ -10,6 +10,7 @@ We may be required to list sources for where we learned the stuff we did for thi
   * https://stackoverflow.com/questions/20793306/how-to-append-content-to-queryselectorall-element-with-innerhtml-innertext
   * https://stackoverflow.com/questions/1947263/using-an-html-button-to-call-a-javascript-function
   * https://stackoverflow.com/questions/32288722/call-python-function-from-js
+  * https://stackoverflow.com/questions/10779148/javascript-jquery-is-not-defined-function-error
 * CodeOp
   * https://codeop.tech/blog/run-python-code-in-javascript/#Method_3_AJAX_requests
 
