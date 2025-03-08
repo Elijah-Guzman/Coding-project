@@ -7,3 +7,16 @@ function buttonFunction() {
     addStuffDiv.appendChild(document.createElement('p')).textContent='Test Added!';
   }
 }
+
+function callbackFunc(response) {
+  console.log(response);
+}
+
+function testFunc() {
+  $.ajax({
+      type: "POST",
+      url: "Quiz.py",
+      data: { param: input },
+      success: callbackFunc
+    });
+}

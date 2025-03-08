@@ -1,3 +1,5 @@
-from flask import Flask
+def main():
+  return "this should be returned"
 
-app = Flask(__name__)
+if __name__ == "__main__":
+  return main()
