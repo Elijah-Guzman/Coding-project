@@ -1,5 +1,4 @@
 // Script for index.html (for now)
-let testNum = 1;
 
 function buttonFunction() {
   // let addStuffDiv = document.querySelector('#addStuffHere');
