@@ -1,8 +1,9 @@
 // Script for index.html (for now)
-let testNum = 3;
+let testNum = 1;
 
 function buttonFunction() {
   for (let x = 0; x < testNum; x++) {
-    console.log(`Test Msg ${x}/${testNum}`);
+    let addStuffDiv = document.querySelector('#addStuffHere');
+    addStuffDiv.appendChild(document.createElement('p')).textContent='Test Added!';
   }
 }
