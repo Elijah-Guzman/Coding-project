@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-@app.route('/your_script.py', methods=['POST'])
+@app.route('Quiz.py', methods=['POST'])
 def handle_post():
     data = request.get_json()
     result = {'message': 'Data received successfully', 'data': data}
