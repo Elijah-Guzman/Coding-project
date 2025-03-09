@@ -1,22 +1,23 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: #eaeaea;
+    padding: 0;
+    margin: 0;
   }
+
   .navbar {
     overflow: hidden;
     background-color: #2f7cc5
   }
   
-  
-  .navbar a {
+  .navbar a.left {
     float: left;
     display: block;
     color: white; 
     text-align: center;
     padding: 14px 20px;
     text-decoration: none;
-  }
-  
+  }  
   
   .navbar a.right {
     float: right; 
@@ -26,9 +27,32 @@ body {
   .navbar a:hover {
     background-color: #5dabf4;
     color: black;
+    transition: 1s;
+    text-decoration: underline;
   }
+  .navbar a.selected {
+    float: left;
+    display: block;
+    color: black; 
+    background-color: #5dabf4;
+    text-decoration: underline;
+    text-align: center;
+    padding: 14px 20px;
+  }
+
   
   .horizontal_dotted_line {
+    border-bottom: 4px double black;
+    width: px;
+  }
+
+  .horizontal_small_line {
     border-bottom: 2px double black;
     width: px;
+  }
+
+  .buttons {
+    padding-right: 10px
+
+
   }
