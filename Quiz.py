@@ -102,12 +102,12 @@ FILTERSTOEXTENTIONS = {
   "visualColorDiscrimination":   "/find/descriptor/result/1.A.4.a.3",
 
   # Interests
-  "realistic":     ["/explore/interests/Realistic",     "/Realistic"],
-  "investigative": ["/explore/interests/Investigative", "/Investigative"],
-  "artistic":      ["/explore/interests/artistic",      "/Artistic"],
-  "social":        ["/explore/interests/Social",        "/Social"],
-  "enterprising":  ["/explore/interests/Enterprising",  "/Enterprising"],
-  "conventional":  ["/explore/interests/Conventional",  "/Conventional"]
+  "realistic":     "/Realistic",
+  "investigative": "/Investigative",
+  "artistic":      "/Artistic",
+  "social":        "/Social",
+  "enterprising":  "/Enterprising",
+  "conventional":  "/Conventional"
 }
 
 CATEGORYTOABILITIES = {
@@ -217,8 +217,8 @@ def scrape_with_results(quizResults):
       sitesToScrape.append(addressStarter + interestStarter + FILTERSTOEXTENTIONS[interest])
 
     # Scraping
-    for siteFilter in sitesToScrape:
-      webpage = requests.get(f"https://onetonline.org{FILTERSTOEXTENTIONS[siteFilter]}")
+    for siteURL in sitesToScrape:
+      webpage = requests.get(siteURL)
       soup = BeautifulSoup(webpage.text, "html.parser")
       
       jobNames = soup.find_all(attrs={"class": "w-45 mw-10e sorter-text"})
