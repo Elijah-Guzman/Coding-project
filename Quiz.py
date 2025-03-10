@@ -123,10 +123,40 @@ CATEGORYTOABILITIES = {
     "flexibilityOfClosure",
     "hearingSensitivity",
     "soundLocalization",
-    "soundRecognition",
+    "speechRecognition",
     "depthPerception",
     "peripheralVision",
     "visualColorDiscrimination"
+  ],
+  "reasoning": [
+    "deductiveReasoning",
+    "inductiveReasoning",
+    "mathematicalReasoing"
+  ],
+  "creativity": [
+    "categoryFlexibility",
+    "fluencyOfIdeas",
+    "originality",
+    "visualization"
+  ],
+  "precision": [
+    "speedOfClosure",
+    "numberFacility",
+    "oralExpression",
+    "writtenExpression",
+    "speechClarity",
+    "rateControl",
+    "reactionTime"
+  ],
+  "physicalCoordination": [
+    "dynamicFlexibility",
+    "extentFlexibility",
+    "grossBodyCoordination"
+  ],
+  "physicalStrength": [
+    "stamina",
+    "dynamicStrength",
+    "staticStrength"
   ]
 }
 
@@ -213,8 +243,9 @@ def scrape_with_results(quizResults):
       sitesToScrape.append(addressStarter + interestStarter + FILTERSTOEXTENTIONS[interest])
 
     # Abilities
-    for interest in argsDict["abilities"]:
-      sitesToScrape.append(addressStarter + interestStarter + FILTERSTOEXTENTIONS[interest])
+    for category in argsDict["abilities"]:
+      for ability in CATEGORYTOABILITIES[category]:
+        sitesToScrape.append(addressStarter + FILTERSTOEXTENTIONS[ability])
 
     # Scraping
     for siteURL in sitesToScrape:
@@ -230,5 +261,17 @@ def scrape_with_results(quizResults):
           jobsCounted += 1
         else:
           break
+    
+    # Formatting and Returning
+    ## Counting how many times each job is mentioned
+    jobTitleCounts = {}
+    for jobTitle in jobsFound:
+      if jobTitleCounts.get(jobTitle) is not None:
+        jobTitleCounts[jobTitle] += 1
+      else:
+        jobTitleCounts.update({jobTitle: 1})
 
-    print(jobsFound)
+    ## Ordering jobs based on times mentioned
+    
+
+    return jobTitleCounts

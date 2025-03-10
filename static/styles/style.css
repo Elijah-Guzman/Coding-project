@@ -44,8 +44,8 @@ body {
   .results {
     margin: auto;
     width: 50%;
-    outline-color: black;
-    outline-style: dashed;
+    /* outline-color: black;
+    outline-style: dashed; */
   }
 
   
