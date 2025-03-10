@@ -40,6 +40,14 @@ body {
     padding: 14px 20px;
   }
 
+
+  .results {
+    margin: auto;
+    width: 50%;
+    outline-color: black;
+    outline-style: dashed;
+  }
+
   
   .horizontal_dotted_line {
     border-bottom: 4px double black;
@@ -54,5 +62,17 @@ body {
   .buttons {
     padding-right: 10px
 
+  }
 
+  .parralax {
+    background-image: url("https://media.discordapp.net/attachments/1347989500055519313/1348762817309708308/image.png?ex=67d0a4c2&is=67cf5342&hm=b0e5f76882966945ef5fd88dddc55d8c5cd1ba9d33d5dcc46ca65c06bb43d72f&=&format=webp&quality=lossless&width=1032&height=679");
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 0;
+    margin: 0;
+    color: #eaeaea;
+    font-weight: 700;
   }

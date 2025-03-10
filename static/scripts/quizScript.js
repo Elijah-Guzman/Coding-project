@@ -1,0 +1,1 @@
+const interestCheckboxes = document.querySelectorAll("input[name='interests']")
