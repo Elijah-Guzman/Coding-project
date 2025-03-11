@@ -229,6 +229,8 @@ def scrape_with_results(quizResults):
     sitesToScrape = []
     argsDict = {}
     jobZone = 1
+    trClassToSearch = "zone-all zone-{}"
+    tdClassToSearch = "w-45 mw-10e sorter-text"
 
     ## Comes in as an ImmutableMultiDict, converts to regular dict
     for key in quizResults.keys():
@@ -261,8 +263,13 @@ def scrape_with_results(quizResults):
           sitesToScrape.append(addressStarter + FILTERSTOEXTENTIONS[ability])
 
     # Handling no Interests or Abilities
+    print(sitesToScrape)
     if not sitesToScrape:
       sitesToScrape.append("https://www.onetonline.org/find/all")
+      trClassToSearch = "zone-all zone-{} level-data"
+      tdClassToSearch = "w-70 mw-10e sorter-text"
+
+    print(sitesToScrape)
 
     # Scraping
     for siteURL in sitesToScrape:
@@ -276,9 +283,9 @@ def scrape_with_results(quizResults):
       while jobsFoundThisItr < 3:
         if jobZone - zoneItrs <= 0:
           break
-        jobZoneElements = divSoup.find_all("tr", attrs={"class": f"zone-all zone-{jobZone - zoneItrs}"}, limit=3)
+        jobZoneElements = divSoup.find_all("tr", attrs={"class": trClassToSearch.format(jobZone - zoneItrs)}, limit=3)
         for element in jobZoneElements:
-          jobNames.append(element.find("td", attrs={"class": "w-45 mw-10e sorter-text"}))
+          jobNames.append(element.find("td", attrs={"class": tdClassToSearch}))
           jobsFoundThisItr += 1
         zoneItrs += 1
 
