@@ -260,6 +260,10 @@ def scrape_with_results(quizResults):
         for ability in CATEGORYTOABILITIES[category]:
           sitesToScrape.append(addressStarter + FILTERSTOEXTENTIONS[ability])
 
+    # Handling no Interests or Abilities
+    if not sitesToScrape:
+      sitesToScrape.append("https://www.onetonline.org/find/all")
+
     # Scraping
     for siteURL in sitesToScrape:
       jobNames = []
