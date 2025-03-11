@@ -41,11 +41,18 @@ body {
   }
 
 
+  .results_big {
+    font-size: 30px;
+  }
+
   .results {
-    margin: auto;
-    width: 50%;
-    /* outline-color: black;
-    outline-style: dashed; */
+    margin-right: 10%;
+    padding-right: 15%;
+    padding-left: 25%;
+    font-size: 25px;
+    background-image: url("https://media.discordapp.net/attachments/1347989500055519313/1348827800580132874/money_throw.png?ex=67d0e147&is=67cf8fc7&hm=9378b6add63b0f90e87e1f4538289c0d0e1c962f6f5962fc5048fd4e029ec4b7&=&format=webp&quality=lossless");
+    background-repeat: no-repeat;
+    background-position: right;
   }
 
   
@@ -71,7 +78,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    padding: 0;
+    padding-top: 20px;
     margin: 0;
     color: #eaeaea;
     font-weight: 700;
@@ -80,3 +87,19 @@ body {
   .center {
     text-align: center;
   }
+
+  .home {
+    background-image: url("https://media.discordapp.net/attachments/1347989500055519313/1348820182025502762/image.png?ex=67d0da2f&is=67cf88af&hm=7712f52c1250805ba5729ea90e10a4ff60cfa803015c96dc9f08b8a8a0aff398&=&format=webp&quality=lossless");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding-top: 20px;
+    padding-bottom: 450px;
+  }
+
+footer {
+  background-color: #113573;
+  height: fit-content;
+  padding: 10px;
+  color: #eaeaea;
+}

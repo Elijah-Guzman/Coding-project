@@ -102,12 +102,12 @@ FILTERSTOEXTENTIONS = {
   "visualColorDiscrimination":   "/find/descriptor/result/1.A.4.a.3",
 
   # Interests
-  "realistic":     "/Realistic",
-  "investigative": "/Investigative",
-  "artistic":      "/Artistic",
-  "social":        "/Social",
-  "enterprising":  "/Enterprising",
-  "conventional":  "/Conventional"
+  "realistic":     "/explore/interests/Realistic",
+  "investigative": "/explore/interests/Investigative",
+  "artistic":      "/explore/interests/Artistic",
+  "social":        "/explore/interests/Social",
+  "enterprising":  "/explore/interests/Enterprising",
+  "conventional":  "/explore/interests/Conventional"
 }
 
 CATEGORYTOABILITIES = {
@@ -131,7 +131,7 @@ CATEGORYTOABILITIES = {
   "reasoning": [
     "deductiveReasoning",
     "inductiveReasoning",
-    "mathematicalReasoing"
+    "mathematicalReasoning"
   ],
   "creativity": [
     "categoryFlexibility",
@@ -222,14 +222,13 @@ Job Zone 5: Master's Degree / Other Graduate School Degree
 
 from bs4 import BeautifulSoup
 import requests
-import pandas as pd
-
 
 def scrape_with_results(quizResults):
     addressStarter = "https://onetonline.org"
     jobsFound = []
     sitesToScrape = []
     argsDict = {}
+    jobZone = 1
 
     ## Comes in as an ImmutableMultiDict, converts to regular dict
     for key in quizResults.keys():
@@ -237,31 +236,52 @@ def scrape_with_results(quizResults):
       for value in quizResults.getlist(key):
         argsDict[key].append(value)
 
-    # Interests
-    interestStarter = "/explore/interests"
-    for interest in argsDict["interests"]:
-      sitesToScrape.append(addressStarter + interestStarter + FILTERSTOEXTENTIONS[interest])
+    # Education Level
+    match argsDict["education"][0]:
+      case "N/A":
+        jobZone = 1
+      case "HS":
+        jobZone = 2
+      case "AD":
+        jobZone = 3
+      case "BD":
+        jobZone = 4
+      case "AdvD":
+        jobZone = 5
 
+    # Interests
+    if argsDict.get("interests") is not None:
+      for interest in argsDict["interests"]:
+        sitesToScrape.append(addressStarter + FILTERSTOEXTENTIONS[interest])
+    
     # Abilities
-    for category in argsDict["abilities"]:
-      for ability in CATEGORYTOABILITIES[category]:
-        sitesToScrape.append(addressStarter + FILTERSTOEXTENTIONS[ability])
+    if argsDict.get("interests") is not None:
+      for category in argsDict["abilities"]:
+        for ability in CATEGORYTOABILITIES[category]:
+          sitesToScrape.append(addressStarter + FILTERSTOEXTENTIONS[ability])
 
     # Scraping
     for siteURL in sitesToScrape:
+      jobNames = []
       webpage = requests.get(siteURL)
-      soup = BeautifulSoup(webpage.text, "html.parser")
+      divSoup = BeautifulSoup(webpage.text, "html.parser")
       
-      jobNames = soup.find_all(attrs={"class": "w-45 mw-10e sorter-text"})
-      jobsCounted = 0
-      for job in jobNames:
-        if jobsCounted < 2:
-          x = job.get_text()
-          jobsFound.append(x)
-          jobsCounted += 1
-        else:
+      ## Get top 3 results in job zone (education level). If not enough and able, go down a level.
+      jobsFoundThisItr = 0
+      zoneItrs = 0
+      while jobsFoundThisItr < 3:
+        if jobZone - zoneItrs <= 0:
           break
-    
+        jobZoneElements = divSoup.find_all("tr", attrs={"class": f"zone-all zone-{jobZone - zoneItrs}"}, limit=3)
+        for element in jobZoneElements:
+          jobNames.append(element.find("td", attrs={"class": "w-45 mw-10e sorter-text"}))
+          jobsFoundThisItr += 1
+        zoneItrs += 1
+
+      for job in jobNames:
+        x = job.get_text().strip()
+        jobsFound.append(x)
+
     # Formatting and Returning
     ## Counting how many times each job is mentioned
     jobTitleCounts = {}
@@ -272,6 +292,6 @@ def scrape_with_results(quizResults):
         jobTitleCounts.update({jobTitle: 1})
 
     ## Ordering jobs based on times mentioned
-    
+    jobTitleCounts = dict(sorted(jobTitleCounts.items(), key=lambda item: item[1]))
 
-    return jobTitleCounts
+    return list(jobTitleCounts.keys())[-5:]
